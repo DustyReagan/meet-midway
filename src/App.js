@@ -4,9 +4,7 @@ import NewLocation from "./components/Location/NewLocation";
 import "./app.css";
 import { Icon } from "leaflet";
 
-const coords = [
-  { lat: 41.19197, lng: 25.33719 },
-];
+const coords = [{ lat: 41.19197, lng: 25.33719 }];
 
 function App() {
   const [locations, setLocations] = useState(coords);
