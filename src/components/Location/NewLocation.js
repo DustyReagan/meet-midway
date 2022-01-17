@@ -6,7 +6,7 @@ const NewLocation = (props) => {
       ...enteredCoordinate,
       id: Math.random().toString(),
     };
-    props.onAddNewLocation(coordinateData);
+    props.onAddLocation(coordinateData);
   };
 
   return (

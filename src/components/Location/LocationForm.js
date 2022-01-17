@@ -12,8 +12,11 @@ const LocationForm = (props) => {
   const submitHandler = (event) => {
     event.preventDefault();
 
+    // Turn a string 1,1 into an array [1,1].
+    const coordinateArray = JSON.parse('[' + enteredCoordinate + ']');
     const locationData = {
-      coordinate: enteredCoordinate,
+      lat: coordinateArray[0],
+      lng: coordinateArray[1],
     };
 
     props.onSaveLocationData(locationData);
