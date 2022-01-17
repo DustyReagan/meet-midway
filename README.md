@@ -1,3 +1,12 @@
+# Introduction
+
+It's early days, but this app will eventually display the mid point between several locations. Use it to minimize travel distance for meetups.
+
+It is not functional yet, but here is a current screen shot:
+
+<img width="849" alt="meet-midway" src="https://user-images.githubusercontent.com/140841/149847138-4f96c9ad-a99f-490c-82b0-c27c357686fe.png">
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
