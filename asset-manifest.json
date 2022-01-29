@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/meet-midway/static/css/main.2122d785.css",
+    "main.js": "/meet-midway/static/js/main.54879224.js",
+    "index.html": "/meet-midway/index.html",
+    "main.2122d785.css.map": "/meet-midway/static/css/main.2122d785.css.map",
+    "main.54879224.js.map": "/meet-midway/static/js/main.54879224.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2122d785.css",
+    "static/js/main.54879224.js"
+  ]
+}
