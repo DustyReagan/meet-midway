@@ -1,13 +1,13 @@
 .leaflet-container {
-    width: 50%;
-    height: 50vh;
+	width: 50%;
+	height: 50vh;
 }
 
 .leaflet-div-icon {
-    background: transparent;
-    border: none;
+	background: transparent;
+	border: none;
 }
 
 .leaflet-div-icon img {
-    transform: rotate(90deg);
+	transform: rotate(90deg);
 }
