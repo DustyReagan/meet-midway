@@ -2,3 +2,12 @@
     width: 50%;
     height: 50vh;
 }
+
+.leaflet-div-icon {
+    background: transparent;
+    border: none;
+}
+
+.leaflet-div-icon img {
+    transform: rotate(90deg);
+}

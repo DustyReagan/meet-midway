@@ -10,7 +10,7 @@ const NewLocation = (props) => {
   };
 
   return (
-    <div className="new-expense">
+    <div>
       <LocationForm onSaveLocationData={saveLocationDataHandler} />
     </div>
   );

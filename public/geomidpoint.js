@@ -5,8 +5,8 @@
  * @param longitude a number representing the coordinates longitude
  */
 function Coordinate( latitude, longitude ) {
-	this.latitude = latitude;
-	this.longitude = longitude;
+	this.lat = latitude;
+	this.lng = longitude;
 }
 
 /**
@@ -30,8 +30,8 @@ function getGeographicMidpoint( coordinates ) {
 
 	for( let i = 0; i < numberOfCoordinates; i++ ) {
 		// Convert latitude and longitude from degrees to radians.
-		const lat = degreesToRadians( coordinates[ i ].latitude );
-		const lon = degreesToRadians( coordinates[ i ].longitude );
+		const lat = degreesToRadians( coordinates[ i ].lat );
+		const lon = degreesToRadians( coordinates[ i ].lng );
 
 		// Convert latitude and longitude to Cartesian coordinates.
 		const a = Math.cos( lat ) * Math.cos( lon );
@@ -169,11 +169,11 @@ function getTotalTravelDistanceToPointKm( destination, coordinates ) {
  */
 function getDistanceBetweenCoordinatesKm( coordinate1, coordinate2 ) {
 	const earthRadiusInKilometers = 6371;
-	const dLat = degreesToRadians( coordinate2.latitude - coordinate1.latitude );
-	const dLon = degreesToRadians( coordinate2.longitude - coordinate1.longitude );
+	const dLat = degreesToRadians( coordinate2.lat - coordinate1.lat );
+	const dLon = degreesToRadians( coordinate2.lng - coordinate1.lng );
 	const a =
 		Math.sin( dLat / 2 ) * Math.sin( dLat / 2 ) +
-		Math.cos( degreesToRadians( coordinate1.latitude ) ) * Math.cos( degreesToRadians( coordinate2.latitude ) ) *
+		Math.cos( degreesToRadians( coordinate1.lat ) ) * Math.cos( degreesToRadians( coordinate2.lat ) ) *
 		Math.sin( dLon / 2 ) * Math.sin( dLon / 2 );
 	const c = 2 * Math.atan2( Math.sqrt( a ), Math.sqrt( 1 - a ) );
 	return earthRadiusInKilometers * c; // Distance in km
@@ -189,8 +189,8 @@ function getDistanceBetweenCoordinatesKm( coordinate1, coordinate2 ) {
  * @return Coordinate the new location's coordinates
  */
 function getNewCoordinate(startPoint, distance, bearing) {
-	const lat1 = degreesToRadians( startPoint.latitude );
-	const lon1 = degreesToRadians( startPoint.longitude );
+	const lat1 = degreesToRadians( startPoint.lat );
+	const lon1 = degreesToRadians( startPoint.lng );
 	const brng = degreesToRadians( bearing );
 
 	const earthRadiusInKilometers = 6371;
