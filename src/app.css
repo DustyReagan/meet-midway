@@ -8,6 +8,25 @@
 	border: none;
 }
 
-.leaflet-div-icon img {
-	transform: rotate(90deg);
+.leaflet-container {
+	height: 100%;
+	width: 100%;
+}
+
+.container {
+	display: flex;
+	flex-direction: row;
+}
+
+.column-1 {
+	width: 40%;
+	height: 100vh;
+	margin: 5px;
+	padding: 5px;
+}
+
+.column-2 {
+	width: 60%;
+	margin: 0;
+	padding: 0;
 }
