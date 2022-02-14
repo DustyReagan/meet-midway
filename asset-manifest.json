@@ -1,14 +1,15 @@
 {
   "files": {
     "main.css": "/meet-midway/static/css/main.84828746.css",
-    "main.js": "/meet-midway/static/js/main.2e407d5c.js",
+    "main.js": "/meet-midway/static/js/main.aed0fe44.js",
     "static/media/downArrow.gif": "/meet-midway/static/media/downArrow.380896ae0faee1557726.gif",
+    "static/media/airplane.gif": "/meet-midway/static/media/airplane.f2a9f31ad48d1d4b18b6.gif",
     "index.html": "/meet-midway/index.html",
     "main.84828746.css.map": "/meet-midway/static/css/main.84828746.css.map",
-    "main.2e407d5c.js.map": "/meet-midway/static/js/main.2e407d5c.js.map"
+    "main.aed0fe44.js.map": "/meet-midway/static/js/main.aed0fe44.js.map"
   },
   "entrypoints": [
     "static/css/main.84828746.css",
-    "static/js/main.2e407d5c.js"
+    "static/js/main.aed0fe44.js"
   ]
 }
