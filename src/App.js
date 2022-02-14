@@ -1,14 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import {MapContainer, TileLayer, Marker, Popup} from 'react-leaflet';
 import NewLocation from './components/Location/NewLocation';
-import {iconMidpoint} from './Icons';
+import {iconMidpoint, iconAirplane} from './Icons';
 import './app.css';
-import {LeafletConsumer} from 'react-leaflet';
-
-const coords = [];
+import { MidPoint, Coordinate } from './geomidpoint';
+import airports from './airports';
 
 function App() {
-	const [locations, setLocations] = useState(coords);
+	const [locations, setLocations] = useState([]);
+	const [closestAirports, setClosestAirports] = useState([]);
 	const [midPoint, setMidPoint] = useState();
 
 	const addLocationHandler = (location) => {
@@ -18,10 +18,9 @@ function App() {
 	};
 
 	const midPointMarkerHandler = (midPoint) => {
-		console.log(midPoint.lat);
 		setMidPoint(
 			<Marker position={[midPoint.lat, midPoint.lng]} key={'midPoint'} icon={iconMidpoint}>
-				<Popup>MidPoint</Popup>
+				<Popup>Least Travel Point</Popup>
 			</Marker>
 		);
 	};
@@ -29,10 +28,29 @@ function App() {
 	useEffect(() => {
 		// when new location is added, calculate the midpoint of the locations.
 		if (locations.length > 1) {
-			const midpoint = window.getGeographicMidpoint(locations);
-			console.log(midpoint);
-			if (midpoint) {
-				midPointMarkerHandler(midpoint);
+      const midPoint = new MidPoint();
+			const minDistance = midPoint.getMinimumDistance(locations);
+
+			if (minDistance) {
+				midPointMarkerHandler(minDistance[0]);
+
+        let airportsDistances = [];
+        airports.forEach((currentValue) => {
+          airportsDistances.push([midPoint.getDistanceBetweenCoordinatesKm(new Coordinate(currentValue.lat, currentValue.lng), minDistance[0]), currentValue]);
+        });
+
+        airportsDistances.sort((a, b) => {
+          return a[0] - b[0];
+        })
+
+        let closestAirports = [];
+        airportsDistances.slice(0, 3).forEach((currentValue) => {
+          closestAirports.push(new Coordinate(currentValue[1].lat, currentValue[1].lng));
+        });
+
+        setClosestAirports(closestAirports);
+
+        console.log(airportsDistances);
 			}
 		}
 	}, [locations]);
@@ -54,6 +72,13 @@ function App() {
 							<Marker position={[lat, lng]} key={index}>
 								<Popup>
 									{index + 1} is for popup with lat: {lat} and lon {lng}
+								</Popup>
+							</Marker>
+						))}
+						{closestAirports.map(({lat, lng}, index) => (
+							<Marker position={[lat, lng]} key={index} icon={iconAirplane}>
+								<Popup>
+									Test
 								</Popup>
 							</Marker>
 						))}
