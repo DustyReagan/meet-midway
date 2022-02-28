@@ -75,7 +75,7 @@ function App() {
 			<div className="container">
 				<div className="column-1 box">
 					<h1>Meet Midway</h1>
-					<p>Enter the your teammates starting coordinates and we'll show you 3 airports that minimize the teams total travel distance.</p>
+					<p>Enter your teammates starting coordinates and we'll show you 3 airports that minimize the teams total travel distance.</p>
 					<NewLocation onAddLocation={addLocationHandler}></NewLocation>
 					<ul>
 						{/* Break out into Locations.js component. */}
