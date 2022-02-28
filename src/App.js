@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import {MapContainer, TileLayer, Marker, Popup} from 'react-leaflet';
-import NewLocation from './components/Location/NewLocation';
+import NewLocation from './components/NewLocation/NewLocation';
+import Location from './components/Location/Location';
 import {iconMidpoint, iconAirplane} from './Icons';
 import './app.css';
-import { MidPoint, Coordinate } from './geomidpoint';
+import {MidPoint, Coordinate} from './geomidpoint';
 import airports from './airports';
 
 function App() {
@@ -28,39 +29,65 @@ function App() {
 	useEffect(() => {
 		// when new location is added, calculate the midpoint of the locations.
 		if (locations.length > 1) {
-      const midPoint = new MidPoint();
+			const midPoint = new MidPoint();
 			const minDistance = midPoint.getMinimumDistance(locations);
 
 			if (minDistance) {
 				midPointMarkerHandler(minDistance[0]);
 
-        let airportsDistances = [];
-        airports.forEach((currentValue) => {
-          airportsDistances.push([midPoint.getDistanceBetweenCoordinatesKm(new Coordinate(currentValue.lat, currentValue.lng), minDistance[0]), currentValue]);
-        });
+				let airportsDistances = [];
+				airports.forEach((currentValue) => {
+					airportsDistances.push([
+						midPoint.getDistanceBetweenCoordinatesKm(
+							new Coordinate(currentValue.lat, currentValue.lng),
+							minDistance[0]
+						),
+						currentValue,
+					]);
+				});
 
-        airportsDistances.sort((a, b) => {
-          return a[0] - b[0];
-        })
+				airportsDistances.sort((a, b) => {
+					return a[0] - b[0];
+				});
 
-        let closestAirports = [];
-        airportsDistances.slice(0, 3).forEach((currentValue) => {
-          closestAirports.push(new Coordinate(currentValue[1].lat, currentValue[1].lng));
-        });
+				let closestAirports = [];
+				airportsDistances.slice(0, 3).forEach((currentValue) => {
+					closestAirports.push(new Coordinate(currentValue[1].lat, currentValue[1].lng));
+				});
 
-        setClosestAirports(closestAirports);
-
-        console.log(airportsDistances);
+				setClosestAirports(closestAirports);
 			}
 		}
+		else {
+			setMidPoint(null);
+			setClosestAirports([]);
+		}
 	}, [locations]);
+
+	function handleRemove(id) {
+		const newLocations = locations.filter((item) => item.id !== id);
+
+		setLocations(newLocations);
+	}
 
 	return (
 		<div>
 			<div className="container">
 				<div className="column-1 box">
 					<h1>Meet Midway</h1>
+					<p>Enter the your teammates starting coordinates and we'll show you 3 airports that minimize the teams total travel distance.</p>
 					<NewLocation onAddLocation={addLocationHandler}></NewLocation>
+					<ul>
+						{/* Break out into Locations.js component. */}
+						{locations.map((item) => (
+							<li key={item.id}>
+								{item.lat}, {item.lng}
+								<button style={{ marginLeft: 10 }} type="button" onClick={() => handleRemove(item.id)}>
+									Remove
+								</button>
+							</li>
+						))}
+					</ul>
 				</div>
 				<div className="column-2 box">
 					<MapContainer center={[0, 0]} zoom={2} scrollWheelZoom={false}>
@@ -77,9 +104,7 @@ function App() {
 						))}
 						{closestAirports.map(({lat, lng}, index) => (
 							<Marker position={[lat, lng]} key={index} icon={iconAirplane}>
-								<Popup>
-									Test
-								</Popup>
+								<Popup>Test</Popup>
 							</Marker>
 						))}
 						{midPoint}

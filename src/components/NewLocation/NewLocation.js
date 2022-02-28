@@ -1,4 +1,4 @@
-import LocationForm from './LocationForm';
+import LocationForm from '../LocationForm/LocationForm';
 
 const NewLocation = (props) => {
 	const saveLocationDataHandler = (enteredCoordinate) => {

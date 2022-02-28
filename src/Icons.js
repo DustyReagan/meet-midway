@@ -9,6 +9,7 @@ const iconMidpoint = new L.Icon({
 	shadowAnchor: null,
 	iconSize: new L.Point(30, 40),
 	className: 'leaflet-div-icon',
+	zIndexOffset: 1000,
 });
 
 
