@@ -6,6 +6,7 @@ import {iconMidpoint, iconAirplane} from './Icons';
 import './app.css';
 import {MidPoint, Coordinate} from './geomidpoint';
 import airports from './airports';
+import logo from './assets/meet-midway-logo.png';
 
 function App() {
 	const [locations, setLocations] = useState([]);
@@ -74,7 +75,8 @@ function App() {
 		<div>
 			<div className="container">
 				<div className="column-1 box">
-					<h1>Meet Midway</h1>
+					<img id="logo" src={logo} width="400" />
+					<hr />
 					<p>Enter your teammates starting coordinates and we'll show you 3 airports that minimize the teams total travel distance.</p>
 					<NewLocation onAddLocation={addLocationHandler}></NewLocation>
 					<ul>
