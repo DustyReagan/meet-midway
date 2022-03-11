@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import { createSearchParams, useSearchParams } from 'react-router-dom'
 import {MapContainer, TileLayer, Marker, Popup} from 'react-leaflet';
 import NewLocation from './components/NewLocation/NewLocation';
 import Location from './components/Location/Location';
@@ -9,14 +10,34 @@ import airports from './airports';
 import logo from './assets/meet-midway-logo.png';
 
 function App() {
-	const [locations, setLocations] = useState([]);
+	const [searchParams, setSearchParams] = useSearchParams();
+	let locations = [];
+	// Sanitize loc parameter.
+	try{
+		locations = JSON.parse(searchParams.get("loc")) || [];
+		if( ! Array.isArray(locations) ) {
+			throw new Error("loc must be an array.");
+		}
+		locations.forEach((currentValue) => {
+			if (! currentValue.hasOwnProperty('lat') || ! currentValue.hasOwnProperty('lng') || ! currentValue.hasOwnProperty('id')) {
+				throw new Error("Invalid object in location array.");
+			  }
+		});
+	}catch(e){
+		locations = [];
+		setSearchParams(
+			createSearchParams({ loc: JSON.stringify([]) })
+		);
+	}
+
 	const [closestAirports, setClosestAirports] = useState([]);
 	const [midPoint, setMidPoint] = useState();
 
 	const addLocationHandler = (location) => {
-		setLocations((prevLocations) => {
-			return [location, ...prevLocations];
-		});
+		setSearchParams(
+			createSearchParams({ loc: JSON.stringify([...locations, location]) })
+		);
+		locations = [...locations, location];
 	};
 
 	const midPointMarkerHandler = (midPoint) => {
@@ -63,12 +84,14 @@ function App() {
 			setMidPoint(null);
 			setClosestAirports([]);
 		}
-	}, [locations]);
+	}, [searchParams]);
 
 	function handleRemove(id) {
 		const newLocations = locations.filter((item) => item.id !== id);
 
-		setLocations(newLocations);
+		setSearchParams(
+			createSearchParams({ loc: JSON.stringify(newLocations) })
+		);
 	}
 
 	return (
@@ -80,7 +103,7 @@ function App() {
 					<p>Enter your teammates starting coordinates and we'll show you 3 airports that minimize the teams total travel distance.</p>
 					<NewLocation onAddLocation={addLocationHandler}></NewLocation>
 					<ul>
-						{/* Break out into Locations.js component. */}
+						{/* TODO: Break out into Locations.js component. */}
 						{locations.map((item) => (
 							<li key={item.id}>
 								{item.lat}, {item.lng}
