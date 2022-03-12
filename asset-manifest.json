@@ -1,15 +1,16 @@
 {
   "files": {
-    "main.css": "/meet-midway/static/css/main.84828746.css",
-    "main.js": "/meet-midway/static/js/main.8f8611ab.js",
+    "main.css": "/meet-midway/static/css/main.acf697bf.css",
+    "main.js": "/meet-midway/static/js/main.4a8bc370.js",
     "static/media/downArrow.gif": "/meet-midway/static/media/downArrow.380896ae0faee1557726.gif",
     "static/media/airplane.gif": "/meet-midway/static/media/airplane.f2a9f31ad48d1d4b18b6.gif",
+    "static/media/meet-midway-logo.png": "/meet-midway/static/media/meet-midway-logo.ed182ceae184999cfc28.png",
     "index.html": "/meet-midway/index.html",
-    "main.84828746.css.map": "/meet-midway/static/css/main.84828746.css.map",
-    "main.8f8611ab.js.map": "/meet-midway/static/js/main.8f8611ab.js.map"
+    "main.acf697bf.css.map": "/meet-midway/static/css/main.acf697bf.css.map",
+    "main.4a8bc370.js.map": "/meet-midway/static/js/main.4a8bc370.js.map"
   },
   "entrypoints": [
-    "static/css/main.84828746.css",
-    "static/js/main.8f8611ab.js"
+    "static/css/main.acf697bf.css",
+    "static/js/main.4a8bc370.js"
   ]
 }
