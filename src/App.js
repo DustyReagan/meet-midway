@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { createSearchParams, useSearchParams } from 'react-router-dom'
+import {createSearchParams, useSearchParams} from 'react-router-dom';
 import {MapContainer, TileLayer, Marker, Popup} from 'react-leaflet';
 import NewLocation from './components/NewLocation/NewLocation';
 import Location from './components/Location/Location';
@@ -13,30 +13,30 @@ function App() {
 	const [searchParams, setSearchParams] = useSearchParams();
 	let locations = [];
 	// Sanitize loc parameter.
-	try{
-		locations = JSON.parse(searchParams.get("loc")) || [];
-		if( ! Array.isArray(locations) ) {
-			throw new Error("loc must be an array.");
+	try {
+		locations = JSON.parse(searchParams.get('loc')) || [];
+		if (!Array.isArray(locations)) {
+			throw new Error('loc must be an array.');
 		}
 		locations.forEach((currentValue) => {
-			if (! currentValue.hasOwnProperty('lat') || ! currentValue.hasOwnProperty('lng') || ! currentValue.hasOwnProperty('id')) {
-				throw new Error("Invalid object in location array.");
-			  }
+			if (
+				!currentValue.hasOwnProperty('lat') ||
+				!currentValue.hasOwnProperty('lng') ||
+				!currentValue.hasOwnProperty('id')
+			) {
+				throw new Error('Invalid object in location array.');
+			}
 		});
-	}catch(e){
+	} catch (e) {
 		locations = [];
-		setSearchParams(
-			createSearchParams({ loc: JSON.stringify([]) })
-		);
+		setSearchParams(createSearchParams({loc: JSON.stringify([])}));
 	}
 
 	const [closestAirports, setClosestAirports] = useState([]);
 	const [midPoint, setMidPoint] = useState();
 
 	const addLocationHandler = (location) => {
-		setSearchParams(
-			createSearchParams({ loc: JSON.stringify([...locations, location]) })
-		);
+		setSearchParams(createSearchParams({loc: JSON.stringify([...locations, location])}));
 		locations = [...locations, location];
 	};
 
@@ -79,8 +79,7 @@ function App() {
 
 				setClosestAirports(closestAirports);
 			}
-		}
-		else {
+		} else {
 			setMidPoint(null);
 			setClosestAirports([]);
 		}
@@ -89,9 +88,7 @@ function App() {
 	function handleRemove(id) {
 		const newLocations = locations.filter((item) => item.id !== id);
 
-		setSearchParams(
-			createSearchParams({ loc: JSON.stringify(newLocations) })
-		);
+		setSearchParams(createSearchParams({loc: JSON.stringify(newLocations)}));
 	}
 
 	return (
@@ -100,19 +97,34 @@ function App() {
 				<div className="column-1 box">
 					<img id="logo" src={logo} width="400" />
 					<hr />
-					<p>Enter your teammates starting coordinates and we'll show you 3 airports that minimize the teams total travel distance.</p>
+					<p>
+						Enter your teammates starting coordinates and we'll show you 3 airports that minimize
+						the teams total travel distance.
+					</p>
 					<NewLocation onAddLocation={addLocationHandler}></NewLocation>
-					<ul>
+					<table>
+						<tr>
+							<th>Coordinates</th>
+							<th>Actions</th>
+						</tr>
 						{/* TODO: Break out into Locations.js component. */}
 						{locations.map((item) => (
-							<li key={item.id}>
-								{item.lat}, {item.lng}
-								<button style={{ marginLeft: 10 }} type="button" onClick={() => handleRemove(item.id)}>
-									Remove
-								</button>
-							</li>
+							<tr>
+								<td key={item.id}>
+									{item.lat}, {item.lng}
+								</td>
+								<td>
+									<button
+										style={{marginLeft: 10}}
+										type="button"
+										onClick={() => handleRemove(item.id)}
+									>
+										Remove
+									</button>
+								</td>
+							</tr>
 						))}
-					</ul>
+					</table>
 				</div>
 				<div className="column-2 box">
 					<MapContainer center={[0, 0]} zoom={2} scrollWheelZoom={false}>

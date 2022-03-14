@@ -14,3 +14,15 @@ body {
 	color: #292e34;
 	padding: 0;
 }
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+td {
+	padding:5px;
+}
+
+tr:nth-child(odd) {
+	background-color: #ffc524;
+}
