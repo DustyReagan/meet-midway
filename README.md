@@ -1,6 +1,6 @@
 # Introduction
 
-Meet-Midway calculates the mid-point and airports that minimize the travel distance between several locations. Use it to minimize travel distance for team meetups.
+Meet-Midway calculates the mid-point and airports that minimize the total (sum) travel distance between several locations. Use it to minimize travel distance for team meetups.
 
 Hosted on [GitHub](https://github.com/DustyReagan/meet-midway/) and GitHub Pages here: https://dustyreagan.github.io/meet-midway/
 
